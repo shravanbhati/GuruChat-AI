@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #07060a;
+}
+
+.grid-overlay {
+  background-image: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  filter: blur(0px);
+  mix-blend-mode: overlay;
+}
+
+.rounded-xl2 {
+  border-radius: 1.25rem;
+}
+
+:focus {
+  outline: 2px dashed rgba(155, 111, 255, 0.14);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
