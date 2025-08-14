@@ -10,7 +10,7 @@ export default function Home() {
           <div className="absolute -left-48 -top-40 w-[720px] h-[720px] rounded-full bg-gradient-to-br from-[#6b28ff]/20 to-[#00d1b2]/6 blur-3xl opacity-60 transform-gpu"></div>
           <div className="absolute -right-48 -bottom-40 w-[560px] h-[560px] rounded-full bg-gradient-to-tr from-[#ff6bcb]/10 to-[#6b9bff]/8 blur-2xl opacity-40 transform-gpu"></div>
 
-          <div className="absgiolute inset-0 z-10 grid-overlay opacity-50"></div>
+          <div className="absolute inset-0 z-10 grid-overlay opacity-50"></div>
         </div>
 
         <div className="container h-screen mx-auto px-6 lg:px-12 py-20">
