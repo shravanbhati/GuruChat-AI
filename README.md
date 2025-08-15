@@ -98,7 +98,8 @@ app/
   ├── page.js          # Home page with character profiles
   ├── layout.js        # Root layout
   ├── chat/
-  │   └── page.js      # Chat interface
+  │   ├── page.js      # Chat interface (server-side rendering wrapper)
+  │   └── client.js    # Client-side chat component
   ├── api/
   │   └── chat/
   │       └── route.js # Chat API endpoint
@@ -165,6 +166,15 @@ Each character has a detailed prompt that defines their personality, communicati
 
 - `app/characters/Hitesh.js`: Hitesh Choudhary's character prompt
 - `app/characters/Piyush.js`: Piyush Garg's character prompt
+
+## Deployment Considerations
+
+This application is configured for deployment on Vercel. The chat page has been refactored to handle both server-side rendering and client-side interactivity:
+
+1. **Server-Side Rendering**: The `app/chat/page.js` file handles initial rendering with search parameters
+2. **Client-Side Interactivity**: The `app/chat/client.js` file handles all client-side functionality including `useSearchParams`
+
+This architecture resolves common issues with `useSearchParams` in production builds.
 
 ## Contributing
 

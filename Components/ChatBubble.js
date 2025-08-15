@@ -101,18 +101,16 @@ export default function ChatBubble({ text, avatar, isSender }) {
   };
 
   return (
-    <div
-      className={`flex items-start gap-3 mb-4 ${
-        isSender ? "flex-row-reverse" : ""
-      }`}
-    >
+    <div className={`flex gap-3 mb-4 ${isSender ? "flex-row-reverse" : ""}`}>
       {/* Assistant avatar only for assistant messages */}
       {!isSender && avatar && (
-        <img
-          src={avatar}
-          alt="assistant avatar"
-          className="w-8 h-8 rounded-full object-cover border border-slate-700 mt-1"
-        />
+        <div className="flex flex-col justify-end">
+          <img
+            src={avatar}
+            alt="assistant avatar"
+            className="w-8 h-8 rounded-full object-cover border border-slate-700"
+          />
+        </div>
       )}
 
       <div
