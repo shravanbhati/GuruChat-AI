@@ -41,12 +41,13 @@ export default function ChatPage() {
               onBack={() => console.log("Go back")}
             />
 
-            <div className="flex-1 overflow-y-auto p-4">
-              {messages.map((msg, i) => (
-                <ChatBubble key={i} {...msg} />
-              ))}
+            <div className="flex flex-col h-[88vh]">
+              <div className="flex-1 overflow-y-auto p-4">
+                {messages.map((msg, i) => (
+                  <ChatBubble key={i} {...msg} />
+                ))}
+              </div>
             </div>
-
             <ChatInput onSend={handleSend} />
           </div>
         </div>
