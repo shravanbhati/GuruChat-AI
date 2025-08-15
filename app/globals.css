@@ -15,7 +15,9 @@
   filter: blur(0px);
   mix-blend-mode: overlay;
 }
-
+hr {
+  display: none;
+}
 .rounded-xl2 {
   border-radius: 1.25rem;
 }

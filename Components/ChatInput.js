@@ -1,15 +1,11 @@
-import { Send } from "lucide-react";
-import { useState } from "react";
+import { Send, SendHorizonal } from "lucide-react";
 
-export default function ChatInput({ onSend }) {
-  const [message, setMessage] = useState("");
-
+export default function ChatInput({ message, setMessage, onSend, loading }) {
   const handleSend = () => {
     if (!message.trim()) return;
     onSend(message);
     setMessage("");
   };
-
   return (
     <div className="flex items-center gap-2 p-3 bg-slate-900 border-t border-slate-800 sticky bottom-0">
       <input
@@ -26,9 +22,10 @@ export default function ChatInput({ onSend }) {
       />
       <button
         onClick={handleSend}
+        disabled={loading}
         className="bg-blue-600 hover:bg-blue-500 text-slate-100 p-2 rounded-full transition"
       >
-        <Send className="w-5 h-5" />
+        {loading ? "✦" : <SendHorizonal className="w-5 h-5" />}
       </button>
     </div>
   );

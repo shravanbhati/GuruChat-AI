@@ -4,22 +4,50 @@ import ChatHeader from "../../Components/ChatHeader.js";
 import ChatBubble from "../../Components/ChatBubble.js";
 import ChatInput from "../../Components/ChatInput.js";
 import Sidebar from "../../Components/Sidebar.js";
-
+import TypingDots from "@/Components/TypingDots.js";
 export default function ChatPage() {
-  const [messages, setMessages] = useState([
-    {
-      text: "Hey! How are you?",
-      avatar: "/hitesh.jpg",
-      isSender: false,
-    },
-    {
-      text: "I’m good, just working on a new project!",
-      isSender: true,
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
-  const handleSend = (text) => {
-    setMessages([...messages, { text, isSender: true }]);
+  const [message, setMessage] = useState("");
+  // const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChat = async () => {
+    if (!message.trim()) return;
+
+    // Add sender's message
+    setMessages((prev) => [...prev, { text: message, isSender: true }]);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await res.json();
+
+      // Add bot's response
+      setMessages((prev) => [
+        ...prev,
+        { text: data.response, isSender: false, avatar: "/hitesh.jpg" },
+      ]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: "Error: " + error.message,
+          isSender: false,
+          avatar: "/hitesh.jpg",
+        },
+      ]);
+    }
+
+    setLoading(false);
+    setMessage("");
   };
 
   return (
@@ -46,9 +74,21 @@ export default function ChatPage() {
                 {messages.map((msg, i) => (
                   <ChatBubble key={i} {...msg} />
                 ))}
+                {loading && (
+                  <ChatBubble
+                    text={<TypingDots />}
+                    isSender={false}
+                    avatar="/hitesh.jpg"
+                  />
+                )}
               </div>
             </div>
-            <ChatInput onSend={handleSend} />
+            <ChatInput
+              message={message}
+              setMessage={setMessage}
+              onSend={handleChat}
+              loading={loading}
+            />
           </div>
         </div>
       </div>
