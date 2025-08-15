@@ -7,10 +7,14 @@ import Sidebar from "../../Components/Sidebar.js";
 import TypingDots from "@/Components/TypingDots.js";
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
-
   const [message, setMessage] = useState("");
-  // const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [selectedModel, setSelectedModel] = useState("hitesh");
+  const modelInfo = {
+    hitesh: { name: "Hitesh Choudhary", avatar: "/hitesh.jpg" },
+    piyush: { name: "Piyush Garg", avatar: "/piyush.jpg" },
+  };
 
   const handleChat = async () => {
     if (!message.trim()) return;
@@ -25,7 +29,7 @@ export default function ChatPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, model: selectedModel }),
       });
 
       const data = await res.json();
@@ -33,7 +37,11 @@ export default function ChatPage() {
       // Add bot's response
       setMessages((prev) => [
         ...prev,
-        { text: data.response, isSender: false, avatar: "/hitesh.jpg" },
+        {
+          text: data.response,
+          isSender: false,
+          avatar: modelInfo[selectedModel].avatar,
+        },
       ]);
     } catch (error) {
       setMessages((prev) => [
@@ -41,7 +49,7 @@ export default function ChatPage() {
         {
           text: "Error: " + error.message,
           isSender: false,
-          avatar: "/hitesh.jpg",
+          avatar: modelInfo[selectedModel].avatar,
         },
       ]);
     }
@@ -64,8 +72,8 @@ export default function ChatPage() {
           </div>
           <div className=" col-span-9 flex flex-col h-full">
             <ChatHeader
-              name="Hitesh Choudhary"
-              avatar="/hitesh.jpg"
+              name={modelInfo[selectedModel].name}
+              avatar={modelInfo[selectedModel].avatar}
               onBack={() => console.log("Go back")}
             />
 
@@ -78,7 +86,7 @@ export default function ChatPage() {
                   <ChatBubble
                     text={<TypingDots />}
                     isSender={false}
-                    avatar="/hitesh.jpg"
+                    avatar={modelInfo[selectedModel].avatar}
                   />
                 )}
               </div>
