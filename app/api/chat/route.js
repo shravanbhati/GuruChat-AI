@@ -8,7 +8,11 @@ const openai = new OpenAI({
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
 });
 
-const conversationHistory = [];
+// Store separate histories for each model
+const conversationHistories = {
+  hitesh: [],
+  piyush: [],
+};
 
 export async function POST(req) {
   try {
@@ -21,31 +25,44 @@ export async function POST(req) {
       );
     }
 
-    if (conversationHistory.length === 0) {
+    // Pick correct history array
+    const history = conversationHistories[model] || [];
+
+    // If first message, insert system prompt
+    if (history.length === 0) {
       const systemPrompt =
         model === "hitesh"
           ? hiteshPrompt
           : model === "piyush"
           ? piyushPrompt
           : "You are a helpful tutor.";
-      console.log(model);
-      conversationHistory.push({
-        role: "system",
-        content: systemPrompt,
-      });
+
+      // Spread if it's an array, otherwise push
+      if (Array.isArray(systemPrompt)) {
+        history.push(...systemPrompt);
+      } else {
+        history.push({ role: "system", content: systemPrompt });
+      }
     }
 
-    conversationHistory.push({ role: "user", content: message });
+    // Add user message
+    history.push({ role: "user", content: message });
 
+    // Send to API
     const response = await openai.chat.completions.create({
       model: "gemini-2.5-flash",
-      messages: conversationHistory,
+      messages: history,
     });
 
     const reply = response.choices[0].message.content;
-    conversationHistory.push({ role: "assistant", content: reply });
+    history.push({ role: "assistant", content: reply });
+
+    // Save updated history back
+    conversationHistories[model] = history;
+
     return NextResponse.json({ response: reply });
   } catch (error) {
+    console.error("Gemini error:", error);
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 502 }

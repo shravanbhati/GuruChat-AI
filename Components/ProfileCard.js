@@ -13,7 +13,7 @@ export default function ProfileCard({
   return (
     <Link
       className="relative bg-gradient-to-b from-slate-800/60 to-slate-900/60 border border-slate-800/40 rounded-xl2 p-6 shadow-card-dark hover:shadow-glow-accent transform hover:-translate-y-1 transition duration-300 cursor-pointer"
-      href="/chat"
+      href={`/chat?character=${name.toLowerCase().split(" ")[0]}`}
       aria-label={`${name} profile card`}
     >
       <div className="flex items-start gap-4">

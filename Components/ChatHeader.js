@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import Link from "next/link";
 
-export default function ChatHeader({ name, avatar }) {
+export default function ChatHeader({ name, avatar, loading }) {
   return (
     <div className="flex items-center gap-4 p-3 bg-slate-900 border-b border-slate-800 sticky top-0 z-10">
       {/* Profile Info */}
@@ -18,7 +18,9 @@ export default function ChatHeader({ name, avatar }) {
         </div>
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-          <span className="text-xs text-slate-400">Online</span>
+          <span className="text-xs text-slate-400">
+            {loading ? "writing..." : "Online"}
+          </span>
         </div>
       </div>
       <Link
