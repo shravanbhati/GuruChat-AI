@@ -12,24 +12,27 @@ const conversationHistory = [];
 
 export async function POST(req) {
   try {
-    const { message, mode } = await req.json();
-    console.log(req);
+    const { message, model } = await req.json();
 
-    // if (!message || !mode) {
-    //   return NextResponse.json(
-    //     { error: "Message and mode are required" },
-    //     { status: 400 }
-    //   );
-    // }
+    if (!message || !model) {
+      return NextResponse.json(
+        { error: "Message and model are required" },
+        { status: 400 }
+      );
+    }
 
     if (conversationHistory.length === 0) {
       const systemPrompt =
-        mode === "hitesh"
+        model === "hitesh"
           ? hiteshPrompt
-          : mode === "piyush"
+          : model === "piyush"
           ? piyushPrompt
           : "You are a helpful tutor.";
-      conversationHistory.push({ role: "system", content: systemPrompt });
+      console.log(model);
+      conversationHistory.push({
+        role: "system",
+        content: systemPrompt,
+      });
     }
 
     conversationHistory.push({ role: "user", content: message });
@@ -43,7 +46,6 @@ export async function POST(req) {
     conversationHistory.push({ role: "assistant", content: reply });
     return NextResponse.json({ response: reply });
   } catch (error) {
-    console.error("Gemini error:", error);
     return NextResponse.json(
       { error: "Failed to process request" },
       { status: 502 }
