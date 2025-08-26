@@ -1,5 +1,5 @@
-import { Send, SendHorizonal } from "lucide-react";
-
+import { SendHorizonal } from "lucide-react";
+import { PiStarFourDuotone } from "react-icons/pi";
 export default function ChatInput({ message, setMessage, onSend, loading }) {
   const handleSend = () => {
     if (!message.trim()) return;
@@ -25,7 +25,11 @@ export default function ChatInput({ message, setMessage, onSend, loading }) {
         disabled={loading}
         className="bg-blue-600 hover:bg-blue-500 text-slate-100 p-2 rounded-full transition"
       >
-        {loading ? "✦" : <SendHorizonal className="w-5 h-5" />}
+        {loading ? (
+          <PiStarFourDuotone className="w-5 h-5" />
+        ) : (
+          <SendHorizonal className="w-5 h-5" />
+        )}
       </button>
     </div>
   );
