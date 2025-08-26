@@ -1,9 +1,9 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "GuruChat",
+  title: "GuruChatAI",
   description:
-    "AI powered chat app to talk directly with coding gurus Hitesh Choudhary and Piyush Garg.",
+    "AI powered chat app to talk directly with coding gurus, Hitesh Choudhary and Piyush Garg.",
 };
 
 export default function RootLayout({ children }) {

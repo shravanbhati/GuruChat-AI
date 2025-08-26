@@ -2,13 +2,18 @@ import { BiPlus } from "react-icons/bi";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import Link from "next/link";
 
-export default function Sidebar({ selectedModel, setSelectedModel, chats }) {
+export default function Sidebar({
+  selectedModel,
+  setSelectedModel,
+  chats,
+  isMobile,
+}) {
   return (
     <div className="h-screen bg-gray-800 flex flex-col">
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         <Link href="/">
           <h2 className="text-lg text-amber-50 font-bold cursor-pointer">
-            ChatGuru AI
+            GuruChat AI
           </h2>
         </Link>
 
@@ -21,7 +26,7 @@ export default function Sidebar({ selectedModel, setSelectedModel, chats }) {
           <div
             key={chat.id}
             className={`flex items-center p-3 hover:bg-gray-700 cursor-pointer ${
-              selectedModel === chat.id ? "bg-gray-700" : ""
+              !isMobile && selectedModel === chat.id ? "bg-gray-700" : ""
             }`}
             onClick={() => setSelectedModel(chat.id)}
           >
