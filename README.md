@@ -1,6 +1,6 @@
-# ChatGuru AI
+# GuruChat AI
 
-ChatGuru AI is an interactive chat application that allows users to have conversations with AI representations of popular tech educators Hitesh Choudhary and Piyush Garg. The application features a modern UI with persistent chat history, real-time typing indicators, and a responsive design.
+GuruChat AI is an interactive chat application that allows users to have conversations with AI representations of popular tech educators Hitesh Choudhary and Piyush Garg. The application features a modern UI with persistent chat history, real-time typing indicators, and a responsive design.
 
 ## Key Features
 
